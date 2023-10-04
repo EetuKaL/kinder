@@ -1,11 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/kinder_card.dart';
+
+import 'package:frontend/provider/data_provider.dart';
 import 'package:frontend/pages/suggestion_page.dart';
 import 'package:frontend/provider/card_provider.dart';
-import 'package:frontend/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp().then((value) => print(value.name));
+
   runApp(const MyApp());
 }
 
@@ -20,8 +25,11 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => CardProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<CardProvider>(create: (_) => CardProvider()),
+        ChangeNotifierProvider<DataProvider>(create: (_) => DataProvider()),
+      ],
       child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(

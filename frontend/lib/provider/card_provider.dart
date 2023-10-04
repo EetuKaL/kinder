@@ -3,6 +3,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 enum CardStatus { like, dislike, superLike }
 
+// Provider to hold all data for the cards.
+
 class CardProvider extends ChangeNotifier {
   List<String> _urlImages = [];
   bool _isDragging = false;

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Profile {
-  final int id;
+  final String id;
   final String profileName;
   final int profileAge;
   final String profileJob;
   final String profileJobAt;
-  final String imageUrls;
+  final List<dynamic> imageUrls;
   Profile(
       {required this.id,
       required this.profileName,
@@ -17,10 +17,10 @@ class Profile {
 
   Profile.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        profileName = json['profileName'],
-        profileAge = json['profileAge'],
-        profileJob = json['profileJob'],
-        profileJobAt = json['profileJobAt'],
+        profileName = json['name'],
+        profileAge = json['age'],
+        profileJob = json['job'],
+        profileJobAt = json['jobAt'],
         imageUrls = json['imageUrls'];
 
   Map<String, dynamic> toJson() => {

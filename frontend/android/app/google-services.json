@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "730285199318",
+    "project_id": "kinder-b5cab",
+    "storage_bucket": "kinder-b5cab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730285199318:android:edfd03c07bdf47bca6de77",
+        "android_client_info": {
+          "package_name": "com.example.frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWJrf9Nxv4l0Im2pY_filLwpHjrkhVQqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

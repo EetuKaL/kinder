@@ -5,8 +5,8 @@ class AppScale {
 
   AppScale(this._ctxt);
 
-  double get cardWidth => scaledWidth(1);
-  double get cardHeight => scaledHeight(.85);
+  double get cardWidth => scaledWidth(0.9);
+  double get cardHeight => scaledHeight(.7);
   double get cardImageHeight => scaledHeight(.7);
   double get cardImageWidht => scaledWidth(.8);
 
