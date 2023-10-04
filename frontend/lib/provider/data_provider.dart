@@ -15,7 +15,7 @@ class DataProvider with ChangeNotifier {
   bool get loading => _loading;
 
   // Methods
-  getProfiles(context) async {
+  getProfiles() async {
     _loading = true;
     _availableProfiles = await getFirestoreProfiles();
     _loading = false;

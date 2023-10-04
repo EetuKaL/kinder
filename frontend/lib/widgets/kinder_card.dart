@@ -1,21 +1,13 @@
-import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:frontend/components/app_scale.dart';
 import 'package:frontend/models/profile.dart';
 import 'package:frontend/provider/card_provider.dart';
-import 'package:frontend/widgets/custom_appbar.dart';
-import 'package:frontend/widgets/profile_card.dart';
-import 'package:lottie/lottie.dart';
-import 'dart:math' as math;
-
 import 'package:provider/provider.dart';
 
 class KinderCard extends StatefulWidget {
-  String urlImage;
+  final Profile profile;
   bool isFront;
-  KinderCard({super.key, required this.urlImage, required this.isFront});
+  KinderCard({super.key, required this.profile, required this.isFront});
 
   @override
   State<KinderCard> createState() => _KinderCardState();
@@ -61,7 +53,6 @@ class _KinderCardState extends State<KinderCard> {
             );
           },
         ),
-        // Saving in the provider's state different positions of profilecard.
         onPanStart: (details) {
           final provider = Provider.of<CardProvider>(context, listen: false);
           provider.startPosition(details);
@@ -83,7 +74,7 @@ class _KinderCardState extends State<KinderCard> {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(widget.urlImage),
+              image: NetworkImage(widget.profile.imageUrls[0]),
               fit: BoxFit.cover,
               alignment: Alignment(-0.3, 0),
             ),
