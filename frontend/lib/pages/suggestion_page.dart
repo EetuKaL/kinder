@@ -69,7 +69,6 @@ class _SuggestionPageState extends State<SuggestionPage> {
     return profiles.length > 0
         ? Stack(
             children: profilesMap.map((profile) {
-              provider.setProfiles(profile);
               return KinderCard(
                   profile: profile, isFront: profilesMap.last == profile);
             }).toList(),
