@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/app_scale.dart';
 import 'package:frontend/models/profile.dart';
-
 import 'package:frontend/provider/card_provider.dart';
-import 'package:frontend/provider/data_provider.dart';
 import 'package:frontend/widgets/custom_appbar.dart';
 import 'package:frontend/widgets/kinder_card.dart';
 import 'package:provider/provider.dart';
@@ -16,8 +14,6 @@ class SuggestionPage extends StatefulWidget {
 }
 
 class _SuggestionPageState extends State<SuggestionPage> {
-  var iteration = 0;
-  var profiles;
   @override
   void initState() {
     super.initState();
@@ -30,10 +26,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
 
   @override
   Widget build(BuildContext context) {
-    iteration++;
     AppScale _scale = AppScale(context);
-    print('drawing next with data $profiles ${iteration}');
-
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: const CustomAppbar(),
@@ -50,22 +43,8 @@ class _SuggestionPageState extends State<SuggestionPage> {
   }
 
   Widget buildCards(profiles) {
-    print('buildcardissa profilen pituus on ${profiles.length}');
-    /* for (var profile in profiles) {
-      print(profile.name);
-    } */
     final List<Profile> profilesMap = profiles;
-    final provider = Provider.of<CardProvider>(context);
-    /* final List<dynamic> profilesMap = profiles.map((e) {
-      return {
-        "id": e.id,
-        "name": e.name,
-        "job": e.job,
-        "jobAt": e.jobAt,
-        "imageUrls": e.imageUrls
-      };
-    }).toList(); */
-    print('profilesmap on $profilesMap');
+
     return profiles.length > 0
         ? Stack(
             children: profilesMap.map((profile) {
