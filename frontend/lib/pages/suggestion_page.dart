@@ -16,18 +16,24 @@ class SuggestionPage extends StatefulWidget {
 }
 
 class _SuggestionPageState extends State<SuggestionPage> {
-  late Future<List<Profile>> profiles;
+  var iteration = 0;
+  var profiles;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    final provider = Provider.of<DataProvider>(context);
-    profiles = provider.getProfiles();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<CardProvider>(context, listen: false).initProfiles();
+    });
+    // TODO: implement initState
   }
 
   @override
   Widget build(BuildContext context) {
+    iteration++;
     AppScale _scale = AppScale(context);
+    print('drawing next with data $profiles ${iteration}');
+
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: const CustomAppbar(),
@@ -36,19 +42,38 @@ class _SuggestionPageState extends State<SuggestionPage> {
           child: SizedBox(
               height: _scale.cardHeight,
               width: _scale.cardWidth,
-              child: FutureBuilder(
-                future: profiles,
-                builder: (context, snapshot) => buildCards(profiles),
-              )),
+              child: Consumer<CardProvider>(builder: (context, value, child) {
+                print('value.profiles: ${value.profiles}');
+                return buildCards(value.profiles);
+              })),
         )));
   }
 
   Widget buildCards(profiles) {
-    return Stack(
-      children: profiles
-          .map((profile) =>
-              KinderCard(profile: profile, isFront: profiles.last == profile))
-          .toList(),
-    );
+    print('buildcardissa profilen pituus on ${profiles.length}');
+    /* for (var profile in profiles) {
+      print(profile.name);
+    } */
+    final List<Profile> profilesMap = profiles;
+    final provider = Provider.of<CardProvider>(context);
+    /* final List<dynamic> profilesMap = profiles.map((e) {
+      return {
+        "id": e.id,
+        "name": e.name,
+        "job": e.job,
+        "jobAt": e.jobAt,
+        "imageUrls": e.imageUrls
+      };
+    }).toList(); */
+    print('profilesmap on $profilesMap');
+    return profiles.length > 0
+        ? Stack(
+            children: profilesMap.map((profile) {
+              provider.setProfiles(profile);
+              return KinderCard(
+                  profile: profile, isFront: profilesMap.last == profile);
+            }).toList(),
+          )
+        : Text('adssadasd');
   }
 }

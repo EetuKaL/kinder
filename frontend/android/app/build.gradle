@@ -67,6 +67,8 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    'com.google.android.gms:play-services-base:17.6.0'
+}
 
 apply plugin: 'com.google.gms.google-services'

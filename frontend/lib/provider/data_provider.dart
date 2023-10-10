@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/components/firestore_utilities.dart';
 
 import 'package:frontend/models/profile.dart';
+import 'package:provider/provider.dart';
 
 // Provider to hold all the data in the application.
 
@@ -14,12 +16,9 @@ class DataProvider with ChangeNotifier {
   List<Profile> get profiles => _availableProfiles;
   bool get loading => _loading;
 
-  // Methods
-  getProfiles() async {
-    _loading = true;
+  Future<void> getAvailableProfiles() async {
     _availableProfiles = await getFirestoreProfiles();
-    _loading = false;
-
-    notifyListeners();
+    print('fetched profiles is $_availableProfiles');
   }
+  // Methods
 }

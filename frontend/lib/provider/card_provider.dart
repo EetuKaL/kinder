@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:frontend/components/firestore_utilities.dart';
+import 'package:frontend/models/profile.dart';
 
 enum CardStatus { like, dislike, superLike }
 
 // Provider to hold all data for the cards.
 
 class CardProvider extends ChangeNotifier {
-  List<String> _urlImages = [];
+  List<Profile> _profiles = [];
   bool _isDragging = false;
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
   double _angle = 0;
+  bool _isLoading = false;
 
-  List<String> get urlImages => _urlImages;
+  List<Profile> get profiles => _profiles;
   bool get isDragging => _isDragging;
   Offset get position => _position;
   Size get screensize => _screenSize;
   double get angle => _angle;
+  bool get isLoading => isLoading;
 
   CardProvider() {
-    resetUsers();
+    /* resetUsers(); */
   }
   void startPosition(DragStartDetails details) {
     _isDragging = true;
@@ -27,12 +31,28 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setProfiles(Profile profile) {
+    _profiles.add(profile);
+    print('_profiles listaan lisätään: $_profiles');
+  }
+
   void resetUsers() {
-    _urlImages = <String>[
+    /* _profiles = <String>[
       "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
       "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1288&q=80",
       "https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80"
-    ];
+    ]; */
+  }
+
+  Future<void> initProfiles() async {
+    _isLoading = true;
+    notifyListeners();
+
+    var resp = await getFirestoreProfiles();
+    _profiles = resp;
+
+    _isLoading = true;
+    notifyListeners();
   }
 
   void updatePosition(DragUpdateDetails details) {
@@ -90,6 +110,7 @@ class CardProvider extends ChangeNotifier {
   void like() {
     _angle = 20;
     _position += Offset(2 * _screenSize.width / 2, 0);
+    print('_profiles listassa on: $_profiles');
     _nextCard();
     notifyListeners();
   }
@@ -110,10 +131,11 @@ class CardProvider extends ChangeNotifier {
   }
 
   Future _nextCard() async {
-    if (_urlImages.isEmpty) return;
+    if (_profiles.isEmpty) return;
     // wait some time for the animation to finish.
     await Future.delayed(Duration(milliseconds: 200));
-    _urlImages.removeLast();
+    print('poistetaan viimeinen kortti, joka on: ${_profiles.last}');
+    _profiles.removeLast();
     resetPosition();
   }
 

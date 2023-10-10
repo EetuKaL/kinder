@@ -6,7 +6,7 @@ import 'package:frontend/models/profile.dart';
 Future<List<Profile>> getFirestoreProfiles() async {
   List<Profile> profiles = [];
   print('fetching Document IDs....');
-  var db = FirebaseFirestore.instance;
+  var db = await FirebaseFirestore.instance;
   await db.collection("users").get().then((event) {
     for (var doc in event.docs) {
       print("${doc.id} => ${doc.data()}");
@@ -19,5 +19,6 @@ Future<List<Profile>> getFirestoreProfiles() async {
   }).onError((error, stackTrace) {
     throw ('error $error');
   });
+  print('returning profiles $profiles');
   return profiles;
 }

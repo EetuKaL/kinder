@@ -74,7 +74,8 @@ class _KinderCardState extends State<KinderCard> {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(widget.profile.imageUrls[0]),
+              image: NetworkImage(widget
+                  .profile.imageUrls[0]), // widget.profile['imageUrls'][0]
               fit: BoxFit.cover,
               alignment: Alignment(-0.3, 0),
             ),
