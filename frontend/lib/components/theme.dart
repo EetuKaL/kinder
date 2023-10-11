@@ -28,28 +28,35 @@ ThemeData _kinderTheme() {
 }
 
 TextTheme _kinderTextTheme(TextTheme base) => base.copyWith(
-
-    // Appbar title and headlines
-    displayLarge: base.displayLarge!.copyWith(
-        fontSize: titleSize,
-        fontFamily: 'Montagu Slab',
-        fontWeight: FontWeight.w700,
-        height: 0,
-        letterSpacing: -0.48,
-        color: primary),
-    // Bigger paragraphs / contents
-    displayMedium: base.displayMedium!.copyWith(
-        fontSize: bigParagraphs,
-        fontFamily: 'Montagu Slab',
-        fontWeight: FontWeight.w700,
-        height: 0,
-        letterSpacing: -0.48,
-        color: primary),
-    // Normal paragraphs / contents
-    displaySmall: base.displaySmall!.copyWith(
-        fontSize: paragraphs,
-        fontFamily: 'Montagu Slab',
-        fontWeight: FontWeight.w700,
-        height: 0,
-        letterSpacing: -0.48,
-        color: black));
+      // Appbar title and headlines
+      displayLarge: base.displayLarge!.copyWith(
+          fontSize: titleSize,
+          fontFamily: 'Montagu Slab',
+          fontWeight: FontWeight.w700,
+          height: 0,
+          letterSpacing: -0.48,
+          color: primary),
+      // Bigger paragraphs / contents
+      displayMedium: base.displayMedium!.copyWith(
+          fontSize: bigParagraphs,
+          fontFamily: 'Montagu Slab',
+          fontWeight: FontWeight.w700,
+          height: 0,
+          letterSpacing: -0.48,
+          color: primary),
+      // Normal paragraphs / contents
+      displaySmall: base.displaySmall!.copyWith(
+          fontSize: paragraphs,
+          fontFamily: 'Montagu Slab',
+          fontWeight: FontWeight.w700,
+          height: 0,
+          letterSpacing: -0.48,
+          color: black),
+      labelSmall: base.labelSmall!.copyWith(
+          fontSize: paragraphs,
+          fontFamily: 'Montagu Slab',
+          fontWeight: FontWeight.w700,
+          height: 0,
+          letterSpacing: -0.48,
+          color: primary),
+    );

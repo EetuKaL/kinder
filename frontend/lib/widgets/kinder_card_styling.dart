@@ -60,12 +60,34 @@ class KinderCardStyling extends StatelessWidget {
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('$name, $age', style: theme.textTheme.displayMedium),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: Text(
+                    '$name, $age',
+                    style: theme.textTheme.displayMedium,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
-                  child: Text("$job, kohteessa $jobAt",
-                      style: theme.textTheme.displaySmall),
+                  child: Text("$job, ", style: theme.textTheme.labelSmall),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'kohteessa ',
+                        style: theme.textTheme.displaySmall,
+                      ),
+                      Text(
+                        '$jobAt',
+                        style: theme.textTheme.labelSmall,
+                      )
+                    ],
+                  ),
                 )
               ],
             ),

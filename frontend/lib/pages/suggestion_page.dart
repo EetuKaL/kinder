@@ -28,7 +28,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CardProvider>(context, listen: false);
-
+    final theme = Theme.of(context);
     AppScale _scale = AppScale(context);
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -41,11 +41,11 @@ class _SuggestionPageState extends State<SuggestionPage> {
               child: Consumer<CardProvider>(builder: (context, value, child) {
                 return !provider.isLoading
                     ? buildCards(value.profiles)
-                    : const Padding(
-                        padding: EdgeInsets.only(
+                    : Padding(
+                        padding: const EdgeInsets.only(
                             left: 50, right: 50, top: 150, bottom: 150),
                         child: CircularProgressIndicator(
-                          color: Color(0xFF4E4B6F),
+                          color: theme.colorScheme.primary,
                           strokeWidth: 10,
                         ),
                       );

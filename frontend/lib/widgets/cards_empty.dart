@@ -17,30 +17,29 @@ class CardsEmpty extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Onnittelut!',
-                          textAlign: TextAlign.center,
+                Lottie.asset('assets/animation_clap.json',
+                    width: _scale.cardWidth / 2,
+                    height: _scale.cardHeight / 2,
+                    fit: BoxFit.contain,
+                    frameRate: FrameRate(30)),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20, left: 0),
+                      child: Text('Onnittelut!',
+                          textAlign: TextAlign.left,
                           style: theme.textTheme.displayLarge),
-                      Lottie.asset('assets/animation_clap.json',
-                          width: _scale.cardWidth / 4,
-                          height: _scale.cardHeight / 5,
-                          fit: BoxFit.fill,
-                          frameRate: FrameRate(30)),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(),
-                  child: Text('Olet taas lähempänä löytää onnesi :)',
-                      textWidthBasis: TextWidthBasis.longestLine,
-                      textAlign: TextAlign.left,
-                      style: theme.textTheme.displayMedium),
-                ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Text('Olet taas lähempänä löytää onnesi :)',
+                          textWidthBasis: TextWidthBasis.longestLine,
+                          textAlign: TextAlign.left,
+                          style: theme.textTheme.displayMedium),
+                    ),
+                  ],
+                )
               ],
             )));
   }
