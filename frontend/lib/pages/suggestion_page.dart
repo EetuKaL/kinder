@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/components/app_scale.dart';
 import 'package:frontend/models/profile.dart';
 import 'package:frontend/provider/card_provider.dart';
+import 'package:frontend/widgets/cards_empty.dart';
 import 'package:frontend/widgets/custom_appbar.dart';
 import 'package:frontend/widgets/kinder_card.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,8 @@ class _SuggestionPageState extends State<SuggestionPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CardProvider>(context, listen: false);
+
     AppScale _scale = AppScale(context);
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -36,8 +39,16 @@ class _SuggestionPageState extends State<SuggestionPage> {
               height: _scale.cardHeight,
               width: _scale.cardWidth,
               child: Consumer<CardProvider>(builder: (context, value, child) {
-                print('value.profiles: ${value.profiles}');
-                return buildCards(value.profiles);
+                return !provider.isLoading
+                    ? buildCards(value.profiles)
+                    : const Padding(
+                        padding: EdgeInsets.only(
+                            left: 50, right: 50, top: 150, bottom: 150),
+                        child: CircularProgressIndicator(
+                          color: Color(0xFF4E4B6F),
+                          strokeWidth: 10,
+                        ),
+                      );
               })),
         )));
   }
@@ -52,6 +63,6 @@ class _SuggestionPageState extends State<SuggestionPage> {
                   profile: profile, isFront: profilesMap.last == profile);
             }).toList(),
           )
-        : Text('adssadasd');
+        : const CardsEmpty();
   }
 }

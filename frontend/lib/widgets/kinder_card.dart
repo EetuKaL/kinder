@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/profile.dart';
 import 'package:frontend/provider/card_provider.dart';
+import 'package:frontend/widgets/kinder_card_styling.dart';
 import 'package:provider/provider.dart';
 
 class KinderCard extends StatefulWidget {
@@ -70,16 +71,12 @@ class _KinderCardState extends State<KinderCard> {
       );
 
   Widget buildCard() => ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(widget
-                  .profile.imageUrls[0]), // widget.profile['imageUrls'][0]
-              fit: BoxFit.cover,
-              alignment: Alignment(-0.3, 0),
-            ),
-          ),
-        ),
-      );
+      borderRadius: BorderRadius.circular(20),
+      child: KinderCardStyling(
+        image: widget.profile.imageUrls[0],
+        name: widget.profile.name,
+        age: widget.profile.age,
+        job: widget.profile.job,
+        jobAt: widget.profile.jobAt,
+      ));
 }
