@@ -80,7 +80,9 @@ class _LoginPageState extends State<LoginPage>
                 !isFocusedToTextField
                     ? Flexible(
                         child: Lottie.asset('assets/animation_login.json',
-                            fit: BoxFit.contain, frameRate: FrameRate(30)),
+                            fit: BoxFit.contain,
+                            frameRate: FrameRate(30),
+                            reverse: true),
                       )
                     : Spacer(),
                 Text(
