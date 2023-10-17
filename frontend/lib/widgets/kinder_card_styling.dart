@@ -25,7 +25,6 @@ class KinderCardStyling extends StatelessWidget {
     return Container(
       height: _scale.cardHeight,
       width: _scale.cardWidth,
-      alignment: const Alignment(0, -10),
       child: Container(
         height: _scale.cardHeight,
         width: _scale.cardWidth,
@@ -72,7 +71,7 @@ class KinderCardStyling extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
-                  child: Text("$job, ", style: theme.textTheme.labelSmall),
+                  child: Text("$job, ", style: theme.textTheme.displaySmall),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 5.0),
@@ -80,11 +79,11 @@ class KinderCardStyling extends StatelessWidget {
                     children: [
                       Text(
                         'kohteessa ',
-                        style: theme.textTheme.displaySmall,
+                        style: theme.textTheme.labelSmall,
                       ),
                       Text(
                         '$jobAt',
-                        style: theme.textTheme.labelSmall,
+                        style: theme.textTheme.displaySmall,
                       )
                     ],
                   ),

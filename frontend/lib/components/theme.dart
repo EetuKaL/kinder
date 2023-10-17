@@ -7,7 +7,7 @@ const Color black = Color(0xFF0F0C0C);
 const Color white = Color.fromARGB(255, 235, 232, 232);
 const appBarBackground = Color.fromARGB(255, 97, 95, 117);
 
-const double titleSize = 40;
+const double titleSize = 32;
 const double bigParagraphs = 24;
 const double paragraphs = 16;
 

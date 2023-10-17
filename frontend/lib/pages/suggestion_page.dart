@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/app_scale.dart';
+import 'package:frontend/models/auth.dart';
 import 'package:frontend/models/profile.dart';
 import 'package:frontend/provider/card_provider.dart';
 import 'package:frontend/widgets/cards_empty.dart';
@@ -35,21 +36,26 @@ class _SuggestionPageState extends State<SuggestionPage> {
         appBar: const CustomAppbar(),
         body: SafeArea(
             child: Center(
-          child: SizedBox(
-              height: _scale.cardHeight,
-              width: _scale.cardWidth,
-              child: Consumer<CardProvider>(builder: (context, value, child) {
-                return !provider.isLoading
-                    ? buildCards(value.profiles)
-                    : Padding(
-                        padding: const EdgeInsets.only(
-                            left: 50, right: 50, top: 150, bottom: 150),
-                        child: CircularProgressIndicator(
-                          color: theme.colorScheme.primary,
-                          strokeWidth: 10,
-                        ),
-                      );
-              })),
+          child: Column(
+            children: [
+              SizedBox(
+                  height: _scale.cardHeight,
+                  width: _scale.cardWidth,
+                  child:
+                      Consumer<CardProvider>(builder: (context, value, child) {
+                    return !provider.isLoading
+                        ? buildCards(value.profiles)
+                        : Padding(
+                            padding: const EdgeInsets.only(
+                                left: 50, right: 50, top: 150, bottom: 150),
+                            child: CircularProgressIndicator(
+                              color: theme.colorScheme.primary,
+                              strokeWidth: 10,
+                            ),
+                          );
+                  })),
+            ],
+          ),
         )));
   }
 

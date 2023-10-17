@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/profile_page.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppbar({super.key});
@@ -14,14 +15,13 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       leading: Padding(
         padding: const EdgeInsets.only(left: 18),
         child: IconButton(
-          icon: const Image(
-            image: AssetImage('assets/profile_img.png'),
-          ),
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Go to profile page')));
-          },
-        ),
+            icon: const Image(
+              image: AssetImage('assets/profile_img.png'),
+            ),
+            onPressed: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => ProfilePage()));
+            }),
       ),
       // Title
       centerTitle: true,

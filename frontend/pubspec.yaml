@@ -62,6 +62,7 @@ flutter:
     - assets/martta.png
     - assets/like.png
     - assets/cancel.png
+    - assets/arrow-back.png
     - assets/mock_data.json
     - assets/animation_clap.json
     - assets/animation_login.json

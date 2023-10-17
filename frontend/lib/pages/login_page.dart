@@ -14,6 +14,7 @@ class _LoginPageState extends State<LoginPage>
   String? errorMessage = '';
   bool isLogin = true;
   bool isFocusedToTextField = false;
+  bool isFocusedToTextField2 = false;
   late final AnimationController _animationController = AnimationController(
     duration: const Duration(seconds: 2),
     vsync: this,
@@ -58,15 +59,16 @@ class _LoginPageState extends State<LoginPage>
       await Auth().createUserWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
     } on FirebaseAuthException catch (e) {
-      setState(() {
-        errorMessage = e.message;
-      });
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('${e.message}')));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    print(
+        ' isFocusedToTextField ${isFocusedToTextField == false} isFocusedToTextField2 ${isFocusedToTextField2 == false}');
     return Scaffold(
       appBar: CustomAppbar(),
       body: Center(
@@ -77,14 +79,16 @@ class _LoginPageState extends State<LoginPage>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                !isFocusedToTextField
-                    ? Flexible(
-                        child: Lottie.asset('assets/animation_login.json',
-                            fit: BoxFit.contain,
-                            frameRate: FrameRate(30),
-                            reverse: true),
-                      )
-                    : Spacer(),
+                if (isFocusedToTextField == false &&
+                    isFocusedToTextField2 == false)
+                  Flexible(
+                    child: Lottie.asset('assets/animation_login.json',
+                        fit: BoxFit.contain,
+                        frameRate: FrameRate(30),
+                        reverse: true),
+                  )
+                else
+                  Spacer(),
                 Text(
                   isLogin ? 'Kirjaudu sisään' : 'Luo käyttäjä',
                   style: theme.textTheme.displayMedium,
@@ -92,6 +96,7 @@ class _LoginPageState extends State<LoginPage>
                 SizedBox(height: 16.0),
                 Focus(
                   onFocusChange: (value) {
+                    print(value);
                     setState(() {
                       isFocusedToTextField = value;
                     });
@@ -110,7 +115,7 @@ class _LoginPageState extends State<LoginPage>
                   onFocusChange: (value) {
                     print(value);
                     setState(() {
-                      isFocusedToTextField = value;
+                      isFocusedToTextField2 = value;
                     });
                   },
                   child: TextField(
@@ -126,6 +131,7 @@ class _LoginPageState extends State<LoginPage>
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
                     isLogin
                         ? signInWWithEmailAndPassword()
                         : createUserWithEmailAndPassword();
@@ -136,6 +142,7 @@ class _LoginPageState extends State<LoginPage>
                 Flexible(
                   child: TextButton(
                       onPressed: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
                         handleSwitch();
                       },
                       child: Text(isLogin

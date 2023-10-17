@@ -18,7 +18,7 @@ class CardsEmpty extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Lottie.asset('assets/animation_clap.json',
-                    width: _scale.cardWidth / 2,
+                    width: _scale.cardWidth / 3,
                     height: _scale.cardHeight / 2,
                     fit: BoxFit.contain,
                     frameRate: FrameRate(30)),

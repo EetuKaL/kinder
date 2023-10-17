@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/components/theme.dart';
+import 'package:frontend/models/auth.dart';
 import 'package:frontend/pages/login_page.dart';
 import 'package:frontend/pages/suggestion_page.dart';
 import 'package:frontend/provider/card_provider.dart';
@@ -26,6 +27,18 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Kinder', theme: kindertheme, home: LoginPage());
+    return MaterialApp(
+        title: 'Kinder',
+        theme: kindertheme,
+        home: StreamBuilder(
+          stream: Auth().authStateChanges,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return SuggestionPage();
+            } else {
+              return LoginPage();
+            }
+          },
+        ));
   }
 }

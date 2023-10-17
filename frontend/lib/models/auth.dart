@@ -11,12 +11,17 @@ class Auth {
       {required String email, required String password}) async {
     await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
+
+    print('currentuser is: ${currentUser}');
   }
 
   Future<void> createUserWithEmailAndPassword(
       {required String email, required String password}) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
+    await _firebaseAuth
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((value) {
+      print('value is!!!! $value');
+    });
   }
 
   Future<void> signOut() async {
