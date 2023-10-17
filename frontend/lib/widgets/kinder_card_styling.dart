@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:frontend/components/app_scale.dart';
 import 'dart:math' as math;
 
-class Profile_Card extends StatelessWidget {
+class KinderCardStyling extends StatelessWidget {
   String? name;
   int? age;
   String? job;
   String? jobAt;
   String image;
 
-  Profile_Card({
+  KinderCardStyling({
     super.key,
     this.age,
     this.job,
@@ -20,18 +20,18 @@ class Profile_Card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     AppScale _scale = AppScale(context);
     return Container(
       height: _scale.cardHeight,
       width: _scale.cardWidth,
-      alignment: const Alignment(0, 0.7),
       child: Container(
-        height: _scale.cardHeight - 150,
-        width: _scale.cardWidth * 0.85,
+        height: _scale.cardHeight,
+        width: _scale.cardWidth,
         alignment: Alignment.bottomRight,
         foregroundDecoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            border: Border.all(color: Color(0xFF4E4B6F), width: 3)),
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
+            border: Border.all(color: theme.colorScheme.primary, width: 3)),
         decoration: ShapeDecoration(
           image: DecorationImage(
               fit: BoxFit.cover,
@@ -44,12 +44,13 @@ class Profile_Card extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.only(bottom: 20),
+          //Text box
           child: Container(
             height: _scale.cardHeight / 7,
-            width: _scale.cardWidth * 0.8,
-            decoration: const ShapeDecoration(
-              color: Color(0xA0D9D9D9),
-              shape: RoundedRectangleBorder(
+            width: _scale.cardWidth * 0.9,
+            decoration: ShapeDecoration(
+              color: theme.colorScheme.surface,
+              shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(15),
                   bottomLeft: Radius.circular(15),
@@ -58,27 +59,33 @@ class Profile_Card extends StatelessWidget {
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  '$name, $age',
-                  style: const TextStyle(
-                    color: Color(0xFF4E4B6F),
-                    fontSize: 24,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w600,
-                    height: 0,
-                    letterSpacing: -0.48,
+                Padding(
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: Text(
+                    '$name, $age',
+                    style: theme.textTheme.displayMedium,
+                    textAlign: TextAlign.left,
                   ),
                 ),
-                Text(
-                  "$job, kohteessa $jobAt",
-                  style: TextStyle(
-                    color: Color(0xFF0F0C0C),
-                    fontSize: 16,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w600,
-                    height: 0,
-                    letterSpacing: -0.48,
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Text("$job, ", style: theme.textTheme.displaySmall),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'kohteessa ',
+                        style: theme.textTheme.labelSmall,
+                      ),
+                      Text(
+                        '$jobAt',
+                        style: theme.textTheme.displaySmall,
+                      )
+                    ],
                   ),
                 )
               ],
