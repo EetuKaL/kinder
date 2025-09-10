@@ -1,0 +1,22 @@
+{
+    "@@locale": "en",
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "logout": "Logout",
+    "welcome": "Welcome",
+    "error": "An error occurred",
+    "profile": "Profile",
+    "suggestion": "Suggestion",
+    "empty_cards": "No cards available",
+    "create_account": "Create an account",
+    "already_have_account": "Already Have an Account?",
+    "congratulations": "Congratulations!",
+    "closer_to_happiness": "You are one step closer to finding your happiness :)",
+    "app_name": "Kinder",
+    "go_to_matches": "Go to matches page",
+    "image_placeholder": "Image placeholder",
+    "signout": "Sign out",
+    "works_at": "Works at"
+
+}

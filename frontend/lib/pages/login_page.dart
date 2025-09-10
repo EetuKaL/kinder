@@ -1,8 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/models/auth.dart';
-import 'package:frontend/widgets/custom_appbar.dart';
+import 'package:kinderfrontend/generated/l10n.dart';
+import 'package:kinderfrontend/models/auth.dart';
+import 'package:kinderfrontend/widgets/custom_appbar.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _LoginPageState extends State<LoginPage>
   );
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
     begin: const Offset(0, 0),
-    end: const Offset(1.5, 0),
+    end: const Offset(5, 0),
   ).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.elasticIn));
 
@@ -46,110 +47,84 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Future<void> signInWWithEmailAndPassword() async {
-    try {
+    context.read<Auth>().mockLogin();
+    /*  try {
       await Auth().signInWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
     } on FirebaseAuthException catch (e) {
       errorMessage = e.message;
-    }
+    } */
   }
 
   Future<void> createUserWithEmailAndPassword() async {
-    try {
+    /*  try {
       await Auth().createUserWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('${e.message}')));
-    }
+          .showSnackBar(SnackBar(content: Text('${e.message}'))r);
+    } */
   }
 
   @override
   Widget build(BuildContext context) {
+    final keyboardOpen = MediaQuery.of(context).viewInsets.bottom == 0;
+    MediaQuery.of(context).viewInsets.bottom;
     final theme = Theme.of(context);
-    print(
-        ' isFocusedToTextField ${isFocusedToTextField == false} isFocusedToTextField2 ${isFocusedToTextField2 == false}');
+    final s = S.of(context);
     return Scaffold(
-      appBar: CustomAppbar(),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: SlideTransition(
             position: _offsetAnimation,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                if (isFocusedToTextField == false &&
-                    isFocusedToTextField2 == false)
-                  Flexible(
-                    child: Lottie.asset('assets/animation_login.json',
-                        fit: BoxFit.contain,
-                        frameRate: FrameRate(30),
-                        reverse: true),
-                  )
-                else
-                  Spacer(),
-                Text(
-                  isLogin ? 'Kirjaudu sisään' : 'Luo käyttäjä',
-                  style: theme.textTheme.displayMedium,
-                ),
-                SizedBox(height: 16.0),
-                Focus(
-                  onFocusChange: (value) {
-                    print(value);
-                    setState(() {
-                      isFocusedToTextField = value;
-                    });
-                  },
-                  child: TextField(
-                    controller: _controllerEmail,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      filled: true,
-                      fillColor: Colors.white,
-                    ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 600),
+              child: Column(
+                spacing: 16.0,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  if (keyboardOpen)
+                    Flexible(
+                      child: Lottie.asset('assets/animation_login.json',
+                          fit: BoxFit.contain,
+                          frameRate: FrameRate(30),
+                          reverse: true),
+                    )
+                  else
+                    const Spacer(),
+                  Text(
+                    isLogin ? s.login : s.create_account,
+                    style: theme.textTheme.displayMedium,
                   ),
-                ),
-                SizedBox(height: 16.0),
-                Focus(
-                  onFocusChange: (value) {
-                    print(value);
-                    setState(() {
-                      isFocusedToTextField2 = value;
-                    });
-                  },
-                  child: TextField(
+                  TextField(
+                    controller: _controllerEmail,
+                    decoration: InputDecoration(hintText: s.email),
+                    onSubmitted: (value) => FocusScope.of(context).nextFocus(),
+                  ),
+                  TextField(
                     controller: _controllerPassword,
                     obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      filled: true,
-                      fillColor: Colors.white,
-                    ),
+                    decoration: InputDecoration(hintText: s.password),
                   ),
-                ),
-                SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: () {
-                    FocusScope.of(context).requestFocus(FocusNode());
-                    isLogin
-                        ? signInWWithEmailAndPassword()
-                        : createUserWithEmailAndPassword();
-                    // Handle login here
-                  },
-                  child: Text(isLogin ? 'Login' : 'Register'),
-                ),
-                Flexible(
-                  child: TextButton(
+                  ElevatedButton(
+                    onPressed: () {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      isLogin
+                          ? signInWWithEmailAndPassword()
+                          : createUserWithEmailAndPassword();
+                    },
+                    child: Text(isLogin ? s.login : s.create_account),
+                  ),
+                  TextButton(
                       onPressed: () {
                         FocusScope.of(context).requestFocus(FocusNode());
                         handleSwitch();
                       },
-                      child: Text(isLogin
-                          ? 'Create an account'
-                          : 'Already have an account?')),
-                ),
-              ],
+                      child: Text(
+                          isLogin ? s.create_account : s.already_have_account)),
+                ],
+              ),
             ),
           ),
         ),

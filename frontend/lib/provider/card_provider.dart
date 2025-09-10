@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:frontend/components/firestore_utilities.dart';
-import 'package:frontend/models/profile.dart';
+import 'package:kinderfrontend/utils/firestore_utilities.dart';
+import 'package:kinderfrontend/models/profile.dart';
 
 enum CardStatus { like, dislike, superLike }
 
@@ -24,7 +24,6 @@ class CardProvider extends ChangeNotifier {
 
   void startPosition(DragStartDetails details) {
     _isDragging = true;
-
     notifyListeners();
   }
 
@@ -33,9 +32,7 @@ class CardProvider extends ChangeNotifier {
   }
 
   Future<void> initProfiles() async {
-    var resp = await getFirestoreProfiles();
-    _profiles = resp;
-
+    _profiles = await getLocalProfiles();
     _isLoading = false;
     notifyListeners();
   }

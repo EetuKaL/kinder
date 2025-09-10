@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/models/auth.dart';
-import 'package:frontend/pages/suggestion_page.dart';
+import 'package:kinderfrontend/generated/l10n.dart';
+import 'package:kinderfrontend/models/auth.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -12,28 +10,28 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late User? user;
-
   Future<void> _handleSignOut(context) async {
     Navigator.of(context).pop();
-    await Auth().signOut();
+    /*  await Auth().signOut(); */
+    context.read<Auth>().mockLogout();
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    user = Auth().currentUser;
+    // user = Auth().currentUser;
   }
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context);
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         forceMaterialTransparency: true,
         title: Text(
-          'Profile',
+          s.profile,
           style: theme.textTheme.displayLarge,
         ),
         leading: Padding(
@@ -53,19 +51,19 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
           children: [
             Text(
-              '${user?.email}',
+              '${''}',
               style: theme.textTheme.displayMedium,
             ),
             Container(
               height: 200,
               color: Colors.blueAccent,
-              child: Text('image placeholder'),
+              child: Text(s.image_placeholder),
             ),
             ElevatedButton(
                 onPressed: () {
                   _handleSignOut(context);
                 },
-                child: Text('signout'))
+                child: Text(s.signout))
           ],
         )),
       ),

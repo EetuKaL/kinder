@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/app_scale.dart';
+import 'package:kinderfrontend/generated/l10n.dart';
 import 'package:lottie/lottie.dart';
 
 class CardsEmpty extends StatelessWidget {
@@ -7,33 +7,28 @@ class CardsEmpty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context);
     final theme = Theme.of(context);
-    AppScale _scale = AppScale(context);
     return Center(
         child: Container(
-            width: _scale.cardWidth,
-            height: _scale.cardHeight,
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Lottie.asset('assets/animation_clap.json',
-                    width: _scale.cardWidth / 3,
-                    height: _scale.cardHeight / 2,
-                    fit: BoxFit.contain,
-                    frameRate: FrameRate(30)),
+                    fit: BoxFit.contain, frameRate: FrameRate(30)),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 20, left: 0),
-                      child: Text('Onnittelut!',
+                      child: Text(s.congratulations,
                           textAlign: TextAlign.left,
                           style: theme.textTheme.displayLarge),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0),
-                      child: Text('Olet taas lähempänä löytää onnesi :)',
+                      child: Text(s.closer_to_happiness,
                           textWidthBasis: TextWidthBasis.longestLine,
                           textAlign: TextAlign.left,
                           style: theme.textTheme.displayMedium),

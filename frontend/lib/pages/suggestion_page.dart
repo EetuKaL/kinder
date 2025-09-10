@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/app_scale.dart';
-import 'package:frontend/models/auth.dart';
-import 'package:frontend/models/profile.dart';
-import 'package:frontend/provider/card_provider.dart';
-import 'package:frontend/widgets/cards_empty.dart';
-import 'package:frontend/widgets/custom_appbar.dart';
-import 'package:frontend/widgets/kinder_card.dart';
+import 'package:kinderfrontend/models/profile.dart';
+import 'package:kinderfrontend/provider/card_provider.dart';
+import 'package:kinderfrontend/widgets/cards_empty.dart';
+import 'package:kinderfrontend/widgets/custom_appbar.dart';
+import 'package:kinderfrontend/widgets/kinder_card.dart';
 import 'package:provider/provider.dart';
 
 class SuggestionPage extends StatefulWidget {
@@ -19,54 +17,47 @@ class _SuggestionPageState extends State<SuggestionPage> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<CardProvider>(context, listen: false).initProfiles();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      context.read<CardProvider>().initProfiles();
     });
-    // TODO: implement initState
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CardProvider>(context, listen: false);
     final theme = Theme.of(context);
-    AppScale _scale = AppScale(context);
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: const CustomAppbar(),
-        body: SafeArea(
-            child: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                  height: _scale.cardHeight,
-                  width: _scale.cardWidth,
-                  child:
-                      Consumer<CardProvider>(builder: (context, value, child) {
-                    return !provider.isLoading
-                        ? buildCards(value.profiles)
-                        : Padding(
-                            padding: const EdgeInsets.only(
-                                left: 50, right: 50, top: 150, bottom: 150),
-                            child: CircularProgressIndicator(
-                              color: theme.colorScheme.primary,
-                              strokeWidth: 10,
-                            ),
-                          );
-                  })),
-            ],
+      extendBodyBehindAppBar: true,
+      appBar: const CustomAppbar(),
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AspectRatio(
+              aspectRatio: 9 / 16,
+              child: Consumer<CardProvider>(
+                builder: (context, cardProvider, child) {
+                  return !cardProvider.isLoading
+                      ? buildCards(cardProvider.profiles)
+                      : Center(
+                          child: CircularProgressIndicator(
+                            color: theme.colorScheme.primary,
+                          ),
+                        );
+                },
+              ),
+            ),
           ),
-        )));
+        ),
+      ),
+    );
   }
 
-  Widget buildCards(profiles) {
-    final List<Profile> profilesMap = profiles;
-
-    return profiles.length > 0
+  Widget buildCards(List<Profile> profiles) {
+    return profiles.isNotEmpty
         ? Stack(
-            children: profilesMap.map((profile) {
+            children: profiles.map((profile) {
               return KinderCard(
-                  profile: profile, isFront: profilesMap.last == profile);
+                  profile: profile, isTop: profiles.last == profile);
             }).toList(),
           )
         : const CardsEmpty();

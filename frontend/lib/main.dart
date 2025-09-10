@@ -1,20 +1,26 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/components/theme.dart';
-import 'package:frontend/models/auth.dart';
-import 'package:frontend/pages/login_page.dart';
-import 'package:frontend/pages/suggestion_page.dart';
-import 'package:frontend/provider/card_provider.dart';
+import 'package:kinderfrontend/generated/l10n.dart';
+import 'package:kinderfrontend/theme/theme.dart';
+import 'package:kinderfrontend/theme/util.dart';
+import 'package:kinderfrontend/models/auth.dart';
+import 'package:kinderfrontend/pages/login_page.dart';
+import 'package:kinderfrontend/pages/suggestion_page.dart';
+import 'package:kinderfrontend/provider/card_provider.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+// await Firebase.initializeApp();
 
-  runApp(ChangeNotifierProvider<CardProvider>(
-    create: (_) => CardProvider(),
-    child: const MyApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CardProvider()),
+        Provider(create: (_) => Auth()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -27,18 +33,27 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    // Use with Google Fonts package to use downloadable fonts
+    final brightness = View.of(context).platformDispatcher.platformBrightness;
+    TextTheme textTheme =
+        createTextTheme(context, "Noto Sans Adlam", "ADLaM Display");
+
+    MaterialTheme theme = MaterialTheme(textTheme);
     return MaterialApp(
-        title: 'Kinder',
-        theme: kindertheme,
-        home: StreamBuilder(
-          stream: Auth().authStateChanges,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return SuggestionPage();
-            } else {
-              return LoginPage();
-            }
-          },
-        ));
+      localizationsDelegates: const [S.delegate],
+      locale: const Locale('en'),
+      title: 'Kinder',
+      theme: brightness == Brightness.light ? theme.light() : theme.dark(),
+      home: StreamBuilder(
+        stream: context.read<Auth>().authStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const SuggestionPage();
+          } else {
+            return LoginPage();
+          }
+        },
+      ),
+    );
   }
 }

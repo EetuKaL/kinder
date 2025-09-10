@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/app_scale.dart';
 import 'dart:math' as math;
 
-class KinderCardStyling extends StatelessWidget {
-  String? name;
-  int? age;
-  String? job;
-  String? jobAt;
-  String image;
+import 'package:kinderfrontend/generated/l10n.dart';
 
-  KinderCardStyling({
+class KinderCardStyling extends StatelessWidget {
+  final String? name;
+  final int? age;
+  final String? job;
+  final String? jobAt;
+  final String image;
+
+  const KinderCardStyling({
     super.key,
     this.age,
     this.job,
@@ -21,75 +22,62 @@ class KinderCardStyling extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    AppScale _scale = AppScale(context);
     return Container(
-      height: _scale.cardHeight,
-      width: _scale.cardWidth,
-      child: Container(
-        height: _scale.cardHeight,
-        width: _scale.cardWidth,
-        alignment: Alignment.bottomRight,
-        foregroundDecoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(15)),
-            border: Border.all(color: theme.colorScheme.primary, width: 3)),
-        decoration: ShapeDecoration(
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(
-                image,
-                scale: 2,
-              )),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          //Text box
-          child: Container(
-            height: _scale.cardHeight / 7,
-            width: _scale.cardWidth * 0.9,
-            decoration: ShapeDecoration(
-              color: theme.colorScheme.surface,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  bottomLeft: Radius.circular(15),
-                ),
+      foregroundDecoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
+          border: Border.all(color: theme.colorScheme.primary, width: 3)),
+      decoration: ShapeDecoration(
+        image: DecorationImage(
+            fit: BoxFit.cover,
+            image: NetworkImage(
+              image,
+            )),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      ),
+      child: Align(
+        alignment: Alignment.bottomLeft,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: ShapeDecoration(
+            color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.5),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15),
+                bottomLeft: Radius.circular(15),
               ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: Text(
-                    '$name, $age',
-                    style: theme.textTheme.displayMedium,
-                    textAlign: TextAlign.left,
-                  ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '$name, $age',
+                style: theme.textTheme.displayMedium,
+                textAlign: TextAlign.left,
+              ),
+              Text(
+                "$job, ",
+                style: theme.textTheme.displaySmall
+                    ?.copyWith(color: Theme.of(context).colorScheme.secondary),
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: S.of(context).works_at,
+                      style: theme.textTheme.displaySmall,
+                    ),
+                    TextSpan(
+                      text: ' $jobAt',
+                      style: theme.textTheme.displaySmall?.copyWith(
+                          color: Theme.of(context).colorScheme.tertiary),
+                    )
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: Text("$job, ", style: theme.textTheme.displaySmall),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        'kohteessa ',
-                        style: theme.textTheme.labelSmall,
-                      ),
-                      Text(
-                        '$jobAt',
-                        style: theme.textTheme.displaySmall,
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),
