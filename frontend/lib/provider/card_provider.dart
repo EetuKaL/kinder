@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend/models/profile.dart';
 import 'package:frontend/utils/firestore_utilities.dart';
 
@@ -52,13 +51,7 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
 
     final status = getStatus();
-    if (status != null) {
-      Fluttertoast.cancel();
-      Fluttertoast.showToast(
-        msg: status.toString().split('.').last.toUpperCase(),
-        fontSize: 36,
-      );
-    }
+    if (status != null) {}
 
     switch (status) {
       case CardStatus.like:
