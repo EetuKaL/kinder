@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/models/profile.dart';
 import 'package:frontend/provider/card_provider.dart';
 import 'package:frontend/widgets/cards_empty.dart';
+import 'package:frontend/widgets/centered_circular_progress_indicator.dart';
 import 'package:frontend/widgets/custom_appbar.dart';
 import 'package:frontend/widgets/kinder_card.dart';
 
@@ -26,7 +26,6 @@ class _SuggestionPageState extends State<SuggestionPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: const CustomAppbar(),
@@ -38,13 +37,24 @@ class _SuggestionPageState extends State<SuggestionPage> {
               aspectRatio: 9 / 16,
               child: Consumer<CardProvider>(
                 builder: (context, cardProvider, child) {
-                  return !cardProvider.isLoading
-                      ? buildCards(cardProvider.profiles)
-                      : Center(
-                          child: CircularProgressIndicator(
-                            color: theme.colorScheme.primary,
-                          ),
-                        );
+                  return AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    child: cardProvider.isLoading
+                        ? const CenteredCircularProgressIndicator()
+                        : cardProvider.profiles.isEmpty
+                            ? const CardsEmpty()
+                            : Stack(
+                                children: cardProvider.profiles.indexed
+                                    .map<KinderCard>(
+                                      (tuple) => KinderCard(
+                                        profile: tuple.$2,
+                                        isTop: tuple.$1 ==
+                                            cardProvider.profiles.length - 1,
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                  );
                 },
               ),
             ),
@@ -52,16 +62,5 @@ class _SuggestionPageState extends State<SuggestionPage> {
         ),
       ),
     );
-  }
-
-  Widget buildCards(List<Profile> profiles) {
-    return profiles.isNotEmpty
-        ? Stack(
-            children: profiles.map((profile) {
-              return KinderCard(
-                  profile: profile, isTop: profiles.last == profile);
-            }).toList(),
-          )
-        : const CardsEmpty();
   }
 }

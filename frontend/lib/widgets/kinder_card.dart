@@ -29,8 +29,7 @@ class _KinderCardState extends State<KinderCard> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
-        child: widget.isTop ? buildFirstCard() : buildCard());
+    return widget.isTop ? buildFirstCard() : buildCard();
   }
 
   Widget buildFirstCard() => GestureDetector(

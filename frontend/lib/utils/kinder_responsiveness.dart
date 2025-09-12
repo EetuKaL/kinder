@@ -19,6 +19,8 @@ class KinderResponsiveness extends InheritedWidget {
     return width * MediaQuery.of(context).size.width / 375;
   }
 
+  double get base => _valueByScreenTypeScaled<double>(_base, 0.25);
+
   double get spacingTight =>
       _valueByScreenTypeScaled<double>(_base * 0.5, 0.25);
   double get spacing => _valueByScreenTypeScaled<double>(_base, 0.25);
