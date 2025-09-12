@@ -17,6 +17,13 @@
     "go_to_matches": "Go to matches page",
     "image_placeholder": "Image placeholder",
     "signout": "Sign out",
-    "works_at": "Works at"
+    "works_at": "Works at",
+    "welcome_to_kinder" : "Welcome to Kinder",
+    "error_general": "Something went wrong. Please try again later.",
+    "invalid_email": "The email address is badly formatted.",
+    "email_in_use": "The email address is already in use by another account.",
+    "weak_password": "The password must be at least 6 characters long.",
+    "user_or_password_incorrect": "The email or password is incorrect."
+
 
 }

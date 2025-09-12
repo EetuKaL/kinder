@@ -32,11 +32,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "congratulations": MessageLookupByLibrary.simpleMessage("Congratulations!"),
     "create_account": MessageLookupByLibrary.simpleMessage("Create an account"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "email_in_use": MessageLookupByLibrary.simpleMessage(
+      "The email address is already in use by another account.",
+    ),
     "empty_cards": MessageLookupByLibrary.simpleMessage("No cards available"),
     "error": MessageLookupByLibrary.simpleMessage("An error occurred"),
+    "error_general": MessageLookupByLibrary.simpleMessage(
+      "Something went wrong. Please try again later.",
+    ),
     "go_to_matches": MessageLookupByLibrary.simpleMessage("Go to matches page"),
     "image_placeholder": MessageLookupByLibrary.simpleMessage(
       "Image placeholder",
+    ),
+    "invalid_email": MessageLookupByLibrary.simpleMessage(
+      "The email address is badly formatted.",
     ),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
@@ -44,7 +53,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "signout": MessageLookupByLibrary.simpleMessage("Sign out"),
     "suggestion": MessageLookupByLibrary.simpleMessage("Suggestion"),
+    "user_or_password_incorrect": MessageLookupByLibrary.simpleMessage(
+      "The email or password is incorrect.",
+    ),
+    "weak_password": MessageLookupByLibrary.simpleMessage(
+      "The password must be at least 6 characters long.",
+    ),
     "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
+    "welcome_to_kinder": MessageLookupByLibrary.simpleMessage(
+      "Welcome to Kinder",
+    ),
     "works_at": MessageLookupByLibrary.simpleMessage("Works at"),
   };
 }

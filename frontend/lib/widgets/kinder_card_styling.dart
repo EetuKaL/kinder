@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
-import 'package:kinderfrontend/generated/l10n.dart';
+import 'package:frontend/generated/l10n.dart';
 
 class KinderCardStyling extends StatelessWidget {
   final String? name;

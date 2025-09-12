@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kinderfrontend/utils/firestore_utilities.dart';
-import 'package:kinderfrontend/models/profile.dart';
+import 'package:frontend/models/profile.dart';
+import 'package:frontend/utils/firestore_utilities.dart';
 
 enum CardStatus { like, dislike, superLike }
 

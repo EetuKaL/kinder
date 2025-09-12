@@ -178,6 +178,66 @@ class S {
   String get works_at {
     return Intl.message('Works at', name: 'works_at', desc: '', args: []);
   }
+
+  /// `Welcome to Kinder`
+  String get welcome_to_kinder {
+    return Intl.message(
+      'Welcome to Kinder',
+      name: 'welcome_to_kinder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong. Please try again later.`
+  String get error_general {
+    return Intl.message(
+      'Something went wrong. Please try again later.',
+      name: 'error_general',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The email address is badly formatted.`
+  String get invalid_email {
+    return Intl.message(
+      'The email address is badly formatted.',
+      name: 'invalid_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The email address is already in use by another account.`
+  String get email_in_use {
+    return Intl.message(
+      'The email address is already in use by another account.',
+      name: 'email_in_use',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password must be at least 6 characters long.`
+  String get weak_password {
+    return Intl.message(
+      'The password must be at least 6 characters long.',
+      name: 'weak_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The email or password is incorrect.`
+  String get user_or_password_incorrect {
+    return Intl.message(
+      'The email or password is incorrect.',
+      name: 'user_or_password_incorrect',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

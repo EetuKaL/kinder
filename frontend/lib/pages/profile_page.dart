@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kinderfrontend/generated/l10n.dart';
-import 'package:kinderfrontend/models/auth.dart';
+import 'package:frontend/generated/l10n.dart';
+import 'package:frontend/utils/auth.dart';
 
 class ProfilePage extends StatefulWidget {
+  static const String routeName = '/profile';
   const ProfilePage({super.key});
 
   @override
@@ -10,12 +11,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  Future<void> _handleSignOut(context) async {
-    Navigator.of(context).pop();
-    /*  await Auth().signOut(); */
-    context.read<Auth>().mockLogout();
-  }
-
   @override
   void initState() {
     // TODO: implement initState
@@ -40,15 +35,12 @@ class _ProfilePageState extends State<ProfilePage> {
               icon: const Image(
                 image: AssetImage('assets/arrow-back.png'),
               ),
-              onPressed: () {
-                _handlepress(context);
-              }),
+              onPressed: () {}),
         ),
         centerTitle: true,
       ),
       body: Center(
-        child: Expanded(
-            child: Column(
+        child: Column(
           children: [
             Text(
               '${''}',
@@ -60,17 +52,15 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Text(s.image_placeholder),
             ),
             ElevatedButton(
-                onPressed: () {
-                  _handleSignOut(context);
-                },
+                onPressed: () async => await _logout(context),
                 child: Text(s.signout))
           ],
-        )),
+        ),
       ),
     );
   }
 
-  void _handlepress(context) {
-    Navigator.of(context).pop();
+  Future<void> _logout(BuildContext context) async {
+    await Auth.of(context).signOut();
   }
 }

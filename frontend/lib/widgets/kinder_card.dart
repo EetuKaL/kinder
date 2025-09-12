@@ -1,8 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:kinderfrontend/models/profile.dart';
-import 'package:kinderfrontend/provider/card_provider.dart';
-import 'package:kinderfrontend/widgets/kinder_card_styling.dart';
+import 'package:frontend/models/profile.dart';
+import 'package:frontend/provider/card_provider.dart';
+import 'package:frontend/widgets/kinder_card_styling.dart';
+
 import 'package:provider/provider.dart';
 
 class KinderCard extends StatefulWidget {
@@ -43,9 +44,7 @@ class _KinderCardState extends State<KinderCard> {
 
             final center = constraints.smallest.center(Offset.zero);
             final angle = card.angle * pi / 180;
-            print(position);
-            print(card.isDragging);
-            print(card.angle);
+
             final RotatedMatrix = Matrix4.identity()
               ..translate(center.dx, center.dy)
               ..rotateZ(angle)
