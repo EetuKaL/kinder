@@ -4,13 +4,34 @@ import "package:frontend/theme/theme_util.dart";
 
 const _base = 8.0;
 
-class MaterialThemeData extends ThemeData {
-  final TextTheme textTheme;
+class ResponsiveThemeData {
+  late final TextTheme textTheme;
   late final ScreenType screenType;
+  final ColorScheme colorScheme;
 
-  MaterialThemeData(BuildContext context, {required this.textTheme}) {
+  ResponsiveThemeData(BuildContext context, TextTheme theme,
+      {required this.colorScheme}) {
     screenType = getScreenType(MediaQuery.sizeOf(context).width);
+    textTheme = theme.apply(
+      bodyColor: colorScheme.onSurface,
+      displayColor: colorScheme.onSurface,
+    );
   }
+
+  TextStyle get label => valueByScreenType(
+      textTheme.labelSmall!, textTheme.labelMedium!, textTheme.labelLarge!);
+
+  TextStyle get body => valueByScreenType(
+      textTheme.bodySmall!, textTheme.bodyMedium!, textTheme.bodyLarge!);
+
+  TextStyle get title => valueByScreenType(
+      textTheme.titleSmall!, textTheme.titleMedium!, textTheme.titleLarge!);
+
+  TextStyle get headline => valueByScreenType(textTheme.headlineSmall!,
+      textTheme.headlineMedium!, textTheme.headlineLarge!);
+
+  TextStyle get display => valueByScreenType(textTheme.displaySmall!,
+      textTheme.displayMedium!, textTheme.displayLarge!);
 
   static double getResponsiveWidth(BuildContext context, double width) {
     return width * MediaQuery.of(context).size.width / 375;
@@ -41,39 +62,36 @@ class MaterialThemeData extends ThemeData {
   EdgeInsets get pageMargin =>
       EdgeInsets.all(valueByScreenType(_base * 2, _base * 3, _base * 3));
 
-  static ThemeData constructThemeData(
-          TextTheme textTheme, ColorScheme colorScheme) =>
-      ThemeData(
-        useMaterial3: true,
-        brightness: colorScheme.brightness,
-        colorScheme: colorScheme,
-        textTheme: textTheme.apply(
-          bodyColor: colorScheme.onSurface,
-          displayColor: colorScheme.onSurface,
-        ),
-        scaffoldBackgroundColor: colorScheme.surface,
-        canvasColor: colorScheme.surface,
-      );
+  ThemeData constructThemeData() {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: colorScheme.brightness,
+      colorScheme: colorScheme,
+      textTheme: textTheme,
+      scaffoldBackgroundColor: colorScheme.surface,
+      canvasColor: colorScheme.surface,
+    );
+  }
 }
 
-class MaterialTheme extends InheritedWidget {
-  final MaterialThemeData data;
+class ResponsiveTheme extends InheritedWidget {
+  final ResponsiveThemeData data;
 
-  const MaterialTheme({
+  const ResponsiveTheme({
     super.key,
     required this.data,
     required super.child,
   });
 
-  static MaterialThemeData of(BuildContext context) {
-    final MaterialTheme? result =
-        context.dependOnInheritedWidgetOfExactType<MaterialTheme>();
+  static ResponsiveThemeData of(BuildContext context) {
+    final ResponsiveTheme? result =
+        context.dependOnInheritedWidgetOfExactType<ResponsiveTheme>();
     assert(result != null, 'No MaterialTheme found in context');
     return result!.data;
   }
 
   @override
-  bool updateShouldNotify(MaterialTheme oldWidget) =>
+  bool updateShouldNotify(ResponsiveTheme oldWidget) =>
       data.screenType != oldWidget.data.screenType ||
       data.textTheme != oldWidget.data.textTheme;
 }

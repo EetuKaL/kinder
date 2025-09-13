@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/kinder_responsiveness.dart';
+import 'package:frontend/theme/theme.dart';
 
 _showSnackBar(
         BuildContext context, String message, Color color, Color onColor) =>
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(
         message,
-        style: KinderResponsiveness.of(context)
-            .textStyle
-            .body
-            .copyWith(color: onColor),
+        style: ResponsiveTheme.of(context).body.copyWith(color: onColor),
       ),
       duration: const Duration(seconds: 3),
       backgroundColor: color,

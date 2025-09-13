@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/theme/theme.dart';
 import 'package:frontend/theme/theme_definitions.dart';
-import 'package:frontend/theme/theme_schemes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 TextTheme createTextTheme(
@@ -23,7 +22,7 @@ TextTheme createTextTheme(
   return textTheme;
 }
 
-extension ThemeDataExtension on MaterialThemeData {
+extension ThemeDataExtension on ResponsiveThemeData {
   ScreenType getScreenType(double width) {
     if (width < 600) {
       return ScreenType.compact;
@@ -67,29 +66,5 @@ extension ThemeDataExtension on MaterialThemeData {
       }
       return value;
     }
-  }
-
-  ThemeData getLight() {
-    return constructThemeData(lightScheme());
-  }
-
-  ThemeData getLightMediumContrast() {
-    return constructThemeData(lightMediumContrastScheme());
-  }
-
-  ThemeData getLightHighContrast() {
-    return constructThemeData(lightHighContrastScheme());
-  }
-
-  ThemeData getDark() {
-    return constructThemeData(darkScheme());
-  }
-
-  ThemeData getDarkMediumContrast() {
-    return constructThemeData(darkMediumContrastScheme());
-  }
-
-  ThemeData getDarkHighContrast() {
-    return constructThemeData(darkHighContrastScheme());
   }
 }

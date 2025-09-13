@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/theme/theme.dart';
+import 'package:frontend/theme/theme_schemes.dart';
 import 'package:frontend/theme/theme_util.dart';
 
 class MaterialThemeBuilder extends StatefulWidget {
-  final Function(BuildContext, MaterialTheme) builder;
+  final Function(BuildContext, ThemeData) builder;
 
   const MaterialThemeBuilder({Key? key, required this.builder})
       : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _MaterialThemeBuilderState createState() => _MaterialThemeBuilderState();
 }
 
@@ -19,13 +21,15 @@ class _MaterialThemeBuilderState extends State<MaterialThemeBuilder> {
     final textTheme =
         createTextTheme(context, "Noto Sans Adlam", "ADLaM Display");
 
-      MaterialThemeData themeData = MaterialThemeData(context, textTheme: textTheme);
+    final colorScheme =
+        brightness == Brightness.dark ? darkScheme() : lightScheme();
 
-      themeData = theme.Light
-        brightness == Brightness.light ? theme.light() : theme.dark()
+    ResponsiveThemeData responsiveThemeData =
+        ResponsiveThemeData(context, textTheme, colorScheme: colorScheme);
 
-    return Container(
-      child: widget.builder(context, MaterialTheme.of(context)),
+    return ResponsiveTheme(
+      data: responsiveThemeData,
+      child: widget.builder(context, responsiveThemeData.constructThemeData()),
     );
   }
 }

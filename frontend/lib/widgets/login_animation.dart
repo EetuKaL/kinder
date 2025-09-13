@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/generated/l10n.dart';
-import 'package:frontend/utils/kinder_responsiveness.dart';
+import 'package:frontend/theme/theme.dart';
 import 'package:lottie/lottie.dart';
 
 class LoginAnimation extends StatelessWidget {
@@ -9,7 +9,7 @@ class LoginAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final responsive = KinderResponsiveness.of(context);
+    final rT = ResponsiveTheme.of(context);
     return Stack(
       children: [
         Lottie.asset('assets/animation_login.json',
@@ -19,14 +19,14 @@ class LoginAnimation extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.onPrimary,
-              borderRadius: BorderRadius.circular(responsive.borderRadius),
+              borderRadius: BorderRadius.circular(rT.borderRadius),
             ),
             child: Padding(
-              padding: responsive.paddingLoose,
+              padding: rT.paddingLoose,
               child: Text(
                 s.welcome_to_kinder,
-                style: responsive.textStyle.headline.copyWith(
-                  color: Theme.of(context).colorScheme.primary,
+                style: rT.headline.copyWith(
+                  color: rT.colorScheme.primary,
                 ),
               ),
             ),
