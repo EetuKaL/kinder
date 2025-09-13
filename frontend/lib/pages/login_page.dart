@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frontend/generated/l10n.dart';
+import 'package:frontend/theme/theme.dart';
 import 'package:frontend/utils/auth.dart';
-import 'package:frontend/utils/kinder_responsiveness.dart';
 import 'package:frontend/utils/snackbar.dart';
 import 'package:frontend/widgets/centered_circular_progress_indicator.dart';
 import 'package:frontend/widgets/login_animation.dart';
@@ -123,17 +123,17 @@ class _LoginPageState extends State<LoginPage>
     final keyboardOpen = MediaQuery.of(context).viewInsets.bottom == 0;
     MediaQuery.of(context).viewInsets.bottom;
     final s = S.of(context);
-    final responsive = KinderResponsiveness.of(context);
+    final rT = ResponsiveTheme.of(context);
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: responsive.pageMargin,
+          padding: rT.pageMargin,
           child: SlideTransition(
             position: _offsetAnimation,
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 600),
               child: Column(
-                spacing: responsive.spacingLoose,
+                spacing: rT.spacingLoose,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   if (keyboardOpen)
@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage>
                   else
                     const Spacer(),
                   SizedBox(
-                    height: responsive.base * 8,
+                    height: rT.base * 8,
                     child: AnimatedSwitcher(
                         duration: Duration(seconds: !_loading ? 2 : 1),
                         child: _loading
@@ -149,7 +149,7 @@ class _LoginPageState extends State<LoginPage>
                             : Text(
                                 key: ValueKey(_login),
                                 _login ? s.login : s.create_account,
-                                style: responsive.textStyle.display,
+                                style: rT.display,
                               )),
                   ),
                   TextField(
