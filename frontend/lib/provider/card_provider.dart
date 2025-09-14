@@ -7,14 +7,14 @@ enum CardStatus { like, dislike, superLike }
 // Provider to hold all data for the cards.
 
 class CardProvider extends ChangeNotifier {
-  List<Profile> _profiles = [];
+  List<Bio> _profiles = [];
   bool _isDragging = false;
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
   double _angle = 0;
   bool _isLoading = true;
 
-  List<Profile> get profiles => _profiles;
+  List<Bio> get profiles => _profiles;
   bool get isDragging => _isDragging;
   Offset get position => _position;
   Size get screensize => _screenSize;
@@ -26,7 +26,7 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setProfiles(Profile profile) {
+  void setProfiles(Bio profile) {
     _profiles.add(profile);
   }
 

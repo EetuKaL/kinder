@@ -2,12 +2,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/profile.dart';
 import 'package:frontend/provider/card_provider.dart';
-import 'package:frontend/widgets/kinder_card_styling.dart';
+import 'package:frontend/widgets/kinder_card/kinder_card_styling.dart';
 
 import 'package:provider/provider.dart';
 
 class KinderCard extends StatefulWidget {
-  final Profile profile;
+  final Bio profile;
   final bool isTop;
   const KinderCard({super.key, required this.profile, required this.isTop});
 

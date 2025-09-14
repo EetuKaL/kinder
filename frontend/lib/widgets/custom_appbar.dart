@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/generated/l10n.dart';
 import 'package:frontend/pages/profile_page.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -11,7 +12,6 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     final theme = Theme.of(context);
     return AppBar(
       forceMaterialTransparency: true,
-      // Profile Button
       leading: Padding(
         padding: const EdgeInsets.only(left: 18),
         child: IconButton(
@@ -34,7 +34,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
             icon: const Image(image: AssetImage('assets/chat_img.png')),
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Go to matches page')));
+                  SnackBar(content: Text(S.of(context).go_to_matches)));
             },
           ),
         ),

@@ -2,21 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:frontend/generated/l10n.dart';
 import 'package:frontend/utils/auth.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
   static const String routeName = '/profile';
   const ProfilePage({super.key});
-
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // user = Auth().currentUser;
-  }
 
   @override
   Widget build(BuildContext context) {

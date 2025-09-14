@@ -16,10 +16,10 @@ import 'package:frontend/models/profile.dart';
   return profiles;
 } */
 
-Future<List<Profile>> getLocalProfiles() async {
+Future<List<Bio>> getLocalProfiles() async {
   await Future.delayed(const Duration(seconds: 2));
   return [
-    Profile(
+    Bio(
       id: '1',
       name: 'Alice',
       age: 25,
@@ -29,7 +29,7 @@ Future<List<Profile>> getLocalProfiles() async {
         'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80'
       ],
     ),
-    Profile(
+    Bio(
       id: '2',
       name: 'Bob',
       age: 30,
@@ -39,7 +39,7 @@ Future<List<Profile>> getLocalProfiles() async {
         'https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80'
       ],
     ),
-    Profile(
+    Bio(
       id: '3',
       name: 'Charlie',
       age: 28,
@@ -49,7 +49,7 @@ Future<List<Profile>> getLocalProfiles() async {
         'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80'
       ],
     ),
-    Profile(
+    Bio(
       id: '4',
       name: 'Diana',
       age: 26,

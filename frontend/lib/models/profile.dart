@@ -1,11 +1,11 @@
-class Profile {
+class Bio {
   final String id;
   final String name;
   final int age;
   final String job;
   final String jobAt;
   final List<dynamic> imageUrls;
-  Profile(
+  Bio(
       {required this.id,
       required this.name,
       required this.age,
@@ -13,7 +13,7 @@ class Profile {
       required this.jobAt,
       required this.imageUrls});
 
-  Profile.fromJson(Map<String, dynamic> json)
+  Bio.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
         age = json['age'],
