@@ -1,75 +1,84 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/generated/l10n.dart';
 import 'package:frontend/models/profile.dart';
-import 'package:frontend/provider/card_provider.dart';
+import 'package:frontend/state/card/card_cubit.dart';
+import 'package:frontend/state/card/card_state.dart';
+import 'package:frontend/utils/snackbar.dart';
 import 'package:frontend/widgets/kinder_card/kinder_card_styling.dart';
 
-import 'package:provider/provider.dart';
-
-class KinderCard extends StatefulWidget {
-  final Bio profile;
+class KinderCard extends StatelessWidget {
+  final Profile profile;
   final bool isTop;
   const KinderCard({super.key, required this.profile, required this.isTop});
 
   @override
-  State<KinderCard> createState() => _KinderCardState();
-}
-
-class _KinderCardState extends State<KinderCard> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final size = MediaQuery.sizeOf(context);
-
-      final provider = Provider.of<CardProvider>(context, listen: false);
-      provider.setScreenSize(size);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return widget.isTop ? buildFirstCard() : buildCard();
+    return isTop ? buildCardWithSwipeFeature() : buildCard();
   }
 
-  Widget buildFirstCard() => GestureDetector(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final card = context.watch<CardProvider>();
-            final position = card.position;
-            final milliseconds = card.isDragging ? 0 : 400;
+  void _showUserChoice(BuildContext context, CardStatus? choice) {
+    final s = S.of(context);
+    switch (choice) {
+      case CardStatus.like:
+        showSwipeStatus(context, s.liked);
+      case CardStatus.dislike:
+        showSwipeStatus(context, s.disliked);
+      case CardStatus.superLike:
+        showSwipeStatus(context, s.superLiked);
+      default:
+        break;
+    }
+  }
 
-            // Define rotate of image.
+  Widget buildCardWithSwipeFeature() => BlocProvider(
+        create: (context) => CardCubit(screenSize: context.size!),
+        child: BlocBuilder<CardCubit, CardState>(
+          builder: (context, cardState) {
+            final onPanStart = context.read<CardCubit>().startPosition;
+            final onPanUpdate = context.read<CardCubit>().updatePosition;
+            final onPanEnd = context.read<CardCubit>().endPosition;
+            return GestureDetector(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final position = cardState.position;
+                  final milliseconds = cardState.isDragging ? 0 : 400;
 
-            final center = constraints.smallest.center(Offset.zero);
-            final angle = card.angle * pi / 180;
+                  final center = constraints.smallest.center(Offset.zero);
+                  final angle = cardState.angle * pi / 180;
 
-            final RotatedMatrix = Matrix4.identity()
-              ..translate(center.dx, center.dy)
-              ..rotateZ(angle)
-              ..translate(-center.dx, -center.dy);
+                  final rotatedMatrix = Matrix4.identity()
+                    ..translateByDouble(center.dx, center.dy, 0, 0)
+                    ..rotateZ(angle)
+                    ..translateByDouble(-center.dx, -center.dy, 0, 0);
 
-            return AnimatedContainer(
-              transform: RotatedMatrix..translate(position.dx, position.dy),
-              duration: Duration(milliseconds: milliseconds),
-              child: buildCard(),
+                  return AnimatedContainer(
+                    transform: rotatedMatrix
+                      ..translateByDouble(position.dx, position.dy, 0, 0),
+                    duration: Duration(milliseconds: milliseconds),
+                    child: buildCard(),
+                  );
+                },
+              ),
+              onPanStart: (details) => onPanStart(details),
+              onPanUpdate: (details) => onPanUpdate(details),
+              onPanEnd: (details) {
+                final userChoice = onPanEnd();
+                _showUserChoice(context, userChoice);
+              },
             );
           },
         ),
-        onPanStart: (details) =>
-            context.read<CardProvider>().startPosition(details),
-        onPanUpdate: (details) =>
-            context.read<CardProvider>().updatePosition(details),
-        onPanEnd: (details) => context.read<CardProvider>().endPosition(),
       );
 
   Widget buildCard() => ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: KinderCardStyling(
-        image: widget.profile.imageUrls[0],
-        name: widget.profile.name,
-        age: widget.profile.age,
-        job: widget.profile.job,
-        jobAt: widget.profile.jobAt,
+        image: profile.imageUrls[0],
+        name: profile.name,
+        age: profile.age,
+        job: profile.job,
+        jobAt: profile.jobAt,
       ));
 }

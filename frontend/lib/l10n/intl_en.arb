@@ -23,7 +23,10 @@
     "invalid_email": "The email address is badly formatted.",
     "email_in_use": "The email address is already in use by another account.",
     "weak_password": "The password must be at least 6 characters long.",
-    "user_or_password_incorrect": "The email or password is incorrect."
+    "user_or_password_incorrect": "The email or password is incorrect.",
+    "liked": "Liked",
+    "disliked": "Disliked",
+    "superLiked": "SuperLiked"
 
 
 }
