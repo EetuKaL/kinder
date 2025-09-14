@@ -27,7 +27,7 @@ void showSwipeStatus(BuildContext context, String message) {
       content: Text(
         message,
         style: ResponsiveTheme.of(context)
-            .body
+            .headline
             .copyWith(color: Theme.of(context).colorScheme.primary),
       ),
       duration: const Duration(seconds: 3),
@@ -37,7 +37,7 @@ void showSwipeStatus(BuildContext context, String message) {
           ResponsiveTheme.of(context).borderRadius,
         ),
       ),
-      width: 200,
+      behavior: SnackBarBehavior.floating,
     ),
   );
 }

@@ -250,8 +250,63 @@ class S {
   }
 
   /// `SuperLiked`
-  String get superLiked {
-    return Intl.message('SuperLiked', name: 'superLiked', desc: '', args: []);
+  String get super_liked {
+    return Intl.message('SuperLiked', name: 'super_liked', desc: '', args: []);
+  }
+
+  /// `It's a match!`
+  String get its_a_match {
+    return Intl.message(
+      'It\'s a match!',
+      name: 'its_a_match',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gender`
+  String get gender {
+    return Intl.message('Gender', name: 'gender', desc: '', args: []);
+  }
+
+  /// `Male`
+  String get male {
+    return Intl.message('Male', name: 'male', desc: '', args: []);
+  }
+
+  /// `Female`
+  String get female {
+    return Intl.message('Female', name: 'female', desc: '', args: []);
+  }
+
+  /// `Other`
+  String get other {
+    return Intl.message('Other', name: 'other', desc: '', args: []);
+  }
+
+  /// `Job Status`
+  String get job_status {
+    return Intl.message('Job Status', name: 'job_status', desc: '', args: []);
+  }
+
+  /// `Employed`
+  String get employed {
+    return Intl.message('Employed', name: 'employed', desc: '', args: []);
+  }
+
+  /// `Unemployed`
+  String get unemployed {
+    return Intl.message('Unemployed', name: 'unemployed', desc: '', args: []);
+  }
+
+  /// `Prefer not to say`
+  String get prefer_not_to_say {
+    return Intl.message(
+      'Prefer not to say',
+      name: 'prefer_not_to_say',
+      desc: '',
+      args: [],
+    );
   }
 }
 

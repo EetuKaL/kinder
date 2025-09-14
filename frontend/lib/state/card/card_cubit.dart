@@ -4,19 +4,11 @@ import 'package:frontend/models/profile.dart';
 import 'package:frontend/state/card/card_state.dart';
 
 class CardCubit extends Cubit<CardState> {
-  CardCubit({required Size screenSize})
-      : super(CardState(screensize: screenSize));
+  CardCubit({required Profile profile, required Size screenSize})
+      : super(CardState(screensize: screenSize, profile: profile));
 
   void startPosition(DragStartDetails details) {
     emit(state.copyWith(isDragging: true));
-  }
-
-  void setProfiles(Profile profile) {
-    emit(state.copyWith(profiles: List.from(state.profiles)..add(profile)));
-  }
-
-  Future<void> initProfiles() async {
-    emit(state.copyWith(profiles: [], isLoading: false));
   }
 
   void updatePosition(DragUpdateDetails details) {

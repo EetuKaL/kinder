@@ -22,7 +22,7 @@ class SuggestionPage extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: AspectRatio(
               aspectRatio: 9 / 16,
-              child: StreamBuilder<Iterable<Profile>>(
+              child: StreamBuilder<List<Profile>>(
                 stream: context.read<SuggestionRepository>().suggestionStream,
                 builder: (context, snapshot) {
                   return AnimatedSwitcher(
@@ -31,8 +31,8 @@ class SuggestionPage extends StatelessWidget {
                         ? const CenteredCircularProgressIndicator()
                         : snapshot.data!.isEmpty
                             ? const CardsEmpty()
-                            : Stack(
-                                children: snapshot.data!.indexed
+                            : Stack(children: () {
+                                final cards = snapshot.data!.indexed
                                     .map<KinderCard>(
                                       (tuple) => KinderCard(
                                         profile: tuple.$2,
@@ -40,8 +40,10 @@ class SuggestionPage extends StatelessWidget {
                                             snapshot.data!.length - 1,
                                       ),
                                     )
-                                    .toList(),
-                              ),
+                                    .toList();
+                                print(cards.length);
+                                return cards;
+                              }()),
                   );
                 },
               ),

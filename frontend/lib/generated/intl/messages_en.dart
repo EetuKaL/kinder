@@ -36,11 +36,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "email_in_use": MessageLookupByLibrary.simpleMessage(
       "The email address is already in use by another account.",
     ),
+    "employed": MessageLookupByLibrary.simpleMessage("Employed"),
     "empty_cards": MessageLookupByLibrary.simpleMessage("No cards available"),
     "error": MessageLookupByLibrary.simpleMessage("An error occurred"),
     "error_general": MessageLookupByLibrary.simpleMessage(
       "Something went wrong. Please try again later.",
     ),
+    "female": MessageLookupByLibrary.simpleMessage("Female"),
+    "gender": MessageLookupByLibrary.simpleMessage("Gender"),
     "go_to_matches": MessageLookupByLibrary.simpleMessage("Go to matches page"),
     "image_placeholder": MessageLookupByLibrary.simpleMessage(
       "Image placeholder",
@@ -48,14 +51,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalid_email": MessageLookupByLibrary.simpleMessage(
       "The email address is badly formatted.",
     ),
+    "its_a_match": MessageLookupByLibrary.simpleMessage("It\'s a match!"),
+    "job_status": MessageLookupByLibrary.simpleMessage("Job Status"),
     "liked": MessageLookupByLibrary.simpleMessage("Liked"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "male": MessageLookupByLibrary.simpleMessage("Male"),
+    "other": MessageLookupByLibrary.simpleMessage("Other"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
+    "prefer_not_to_say": MessageLookupByLibrary.simpleMessage(
+      "Prefer not to say",
+    ),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "signout": MessageLookupByLibrary.simpleMessage("Sign out"),
     "suggestion": MessageLookupByLibrary.simpleMessage("Suggestion"),
-    "superLiked": MessageLookupByLibrary.simpleMessage("SuperLiked"),
+    "super_liked": MessageLookupByLibrary.simpleMessage("SuperLiked"),
+    "unemployed": MessageLookupByLibrary.simpleMessage("Unemployed"),
     "user_or_password_incorrect": MessageLookupByLibrary.simpleMessage(
       "The email or password is incorrect.",
     ),

@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:frontend/models/profile.dart';
 
 class CardState {
-  final List<Profile> profiles;
+  final Profile profile;
   final bool isDragging;
   final Offset position;
   final Size screensize;
@@ -11,7 +11,7 @@ class CardState {
   final bool isLoading;
 
   CardState({
-    this.profiles = const [],
+    required this.profile,
     this.isDragging = false,
     this.position = Offset.zero,
     this.screensize = Size.zero,
@@ -20,7 +20,7 @@ class CardState {
   });
 
   CardState copyWith({
-    List<Profile>? profiles,
+    Profile? profile,
     bool? isDragging,
     Offset? position,
     Size? screensize,
@@ -28,7 +28,7 @@ class CardState {
     bool? isLoading,
   }) {
     return CardState(
-      profiles: profiles ?? this.profiles,
+      profile: profile ?? this.profile,
       isDragging: isDragging ?? this.isDragging,
       position: position ?? this.position,
       screensize: screensize ?? this.screensize,
