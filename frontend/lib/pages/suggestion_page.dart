@@ -21,11 +21,16 @@ class SuggestionPage extends StatefulWidget {
 
 class _SuggestionPageState extends State<SuggestionPage> {
   final List<Profile> _suggestedProfiles = [];
+  late final AsyncHandler _asyncHandler;
   @override
   void initState() {
     super.initState();
+    _asyncHandler = AsyncHandler(setState: setState);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      context.read<CardProvider>().initProfiles();
+      _asyncHandler.tryCall(
+          context,
+          () => context.read<CardCubit>().initProfiles(),
+          (e) => showErrorSnackBar(context, S.of(context).error_general));
     });
   }
 
