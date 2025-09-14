@@ -1,15 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/firebase_options.dart';
 import 'package:frontend/generated/l10n.dart';
 import 'package:frontend/pages/login_page.dart';
 import 'package:frontend/pages/profile_page.dart';
 import 'package:frontend/pages/suggestion_page.dart';
-import 'package:frontend/provider/card_provider.dart';
+import 'package:frontend/repositories/suggestion_repository.dart';
 import 'package:frontend/theme/theme_builder.dart';
 import 'package:frontend/utils/auth.dart';
 import 'package:frontend/widgets/auth_redirector.dart';
-import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,9 +17,11 @@ Future<void> main() async {
 
   runApp(
     Auth(
-      child: MultiProvider(
+      child: MultiRepositoryProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => CardProvider()),
+          RepositoryProvider(
+            create: (context) => SuggestionRepository(),
+          ),
         ],
         child: const MyApp(),
       ),

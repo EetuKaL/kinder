@@ -238,6 +238,21 @@ class S {
       args: [],
     );
   }
+
+  /// `Liked`
+  String get liked {
+    return Intl.message('Liked', name: 'liked', desc: '', args: []);
+  }
+
+  /// `Disliked`
+  String get disliked {
+    return Intl.message('Disliked', name: 'disliked', desc: '', args: []);
+  }
+
+  /// `SuperLiked`
+  String get superLiked {
+    return Intl.message('SuperLiked', name: 'superLiked', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

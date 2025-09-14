@@ -20,3 +20,24 @@ void showErrorSnackBar(BuildContext context, String message) {
     Theme.of(context).colorScheme.onError,
   );
 }
+
+void showSwipeStatus(BuildContext context, String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        message,
+        style: ResponsiveTheme.of(context)
+            .body
+            .copyWith(color: Theme.of(context).colorScheme.primary),
+      ),
+      duration: const Duration(seconds: 3),
+      backgroundColor: Theme.of(context).colorScheme.onPrimary,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          ResponsiveTheme.of(context).borderRadius,
+        ),
+      ),
+      width: 200,
+    ),
+  );
+}

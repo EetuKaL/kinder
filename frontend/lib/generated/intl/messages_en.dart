@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "congratulations": MessageLookupByLibrary.simpleMessage("Congratulations!"),
     "create_account": MessageLookupByLibrary.simpleMessage("Create an account"),
+    "disliked": MessageLookupByLibrary.simpleMessage("Disliked"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "email_in_use": MessageLookupByLibrary.simpleMessage(
       "The email address is already in use by another account.",
@@ -47,12 +48,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalid_email": MessageLookupByLibrary.simpleMessage(
       "The email address is badly formatted.",
     ),
+    "liked": MessageLookupByLibrary.simpleMessage("Liked"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "signout": MessageLookupByLibrary.simpleMessage("Sign out"),
     "suggestion": MessageLookupByLibrary.simpleMessage("Suggestion"),
+    "superLiked": MessageLookupByLibrary.simpleMessage("SuperLiked"),
     "user_or_password_incorrect": MessageLookupByLibrary.simpleMessage(
       "The email or password is incorrect.",
     ),

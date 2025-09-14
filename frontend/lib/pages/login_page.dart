@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:frontend/generated/l10n.dart';
 import 'package:frontend/theme/theme.dart';
 import 'package:frontend/utils/auth.dart';
+import 'package:frontend/utils/others.dart';
 import 'package:frontend/utils/snackbar.dart';
 import 'package:frontend/widgets/centered_circular_progress_indicator.dart';
 import 'package:frontend/widgets/login_animation.dart';
@@ -18,9 +19,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   bool _login = true;
+
   bool isFocusedToTextField = false;
   bool isFocusedToTextField2 = false;
-  bool _loading = false;
+  late final AsyncHandler _asyncHandler;
   late final AnimationController _animationController = AnimationController(
     duration: const Duration(seconds: 2),
     vsync: this,
@@ -30,6 +32,12 @@ class _LoginPageState extends State<LoginPage>
     end: const Offset(5, 0),
   ).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.elasticIn));
+
+  @override
+  void initState() {
+    super.initState();
+    _asyncHandler = AsyncHandler(setState: setState);
+  }
 
   @override
   void dispose() {
@@ -53,10 +61,11 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Future<void> _signInWithEmailAndPassword() async {
-    _tryCall<FirebaseAuthException>(() async {
-      await Auth.of(context).signInWithEmailAndPassword(
-          email: _controllerEmail.text, password: _controllerPassword.text);
-    }, (e) {
+    _asyncHandler.tryCall<FirebaseAuthException>(
+        context,
+        () async => await Auth.of(context).signInWithEmailAndPassword(
+            email: _controllerEmail.text,
+            password: _controllerPassword.text), (e) {
       if (mounted) {
         switch (e.code) {
           case 'user-not-found':
@@ -75,7 +84,7 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Future<void> _createUserWithEmailAndPassword() async {
-    _tryCall<FirebaseAuthException>(() async {
+    _asyncHandler.tryCall<FirebaseAuthException>(context, () async {
       final response = await Auth.of(context).createUserWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
       if (mounted) {
@@ -95,27 +104,6 @@ class _LoginPageState extends State<LoginPage>
         }
       }
     });
-  }
-
-  Future<void> _tryCall<T>(
-      Future<void> Function() action, Function(T) onException) async {
-    setState(() {
-      _loading = true;
-    });
-    try {
-      await Future.delayed(const Duration(seconds: 1));
-      await action();
-    } catch (e) {
-      if (e is T) {
-        onException(e as T);
-      }
-    }
-
-    if (mounted) {
-      setState(() {
-        _loading = false;
-      });
-    }
   }
 
   @override
@@ -143,8 +131,9 @@ class _LoginPageState extends State<LoginPage>
                   SizedBox(
                     height: rT.base * 8,
                     child: AnimatedSwitcher(
-                        duration: Duration(seconds: !_loading ? 2 : 1),
-                        child: _loading
+                        duration:
+                            Duration(seconds: _asyncHandler.loading ? 2 : 1),
+                        child: _asyncHandler.loading
                             ? const CenteredCircularProgressIndicator()
                             : Text(
                                 key: ValueKey(_login),
