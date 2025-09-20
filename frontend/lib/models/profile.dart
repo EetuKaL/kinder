@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:frontend/data/db.dart';
-import 'package:frontend/generated/l10n.dart';
 
 class Profile {
   final DocumentReference? ref;
@@ -8,21 +7,13 @@ class Profile {
   final int age;
   final String? job;
   final String? jobAt;
-  final List<String> imageUrls;
+  final List<dynamic> imageUrls;
 
-  final bool? _gender;
-  String getgender(S s) => _gender == true
-      ? s.male
-      : _gender == false
-          ? s.female
-          : s.other;
+  /// gender value semantics true: man false: woman null: something else.
+  final bool? gender;
 
-  final bool? _jobStatus;
-  String getjobStatus(S s) => _jobStatus == true
-      ? s.employed
-      : _jobStatus == false
-          ? s.unemployed
-          : s.prefer_not_to_say;
+  /// jobstatus value semantics true: employeed false: unemployeed null: doesn't want to tell.
+  final bool? jobStatus;
   Profile({
     this.ref,
     required this.name,
@@ -30,10 +21,9 @@ class Profile {
     required this.job,
     required this.jobAt,
     required this.imageUrls,
-    bool? gender,
-    bool? jobStatus,
-  })  : _gender = gender,
-        _jobStatus = jobStatus;
+    required this.gender,
+    required this.jobStatus,
+  });
 
   static Profile fromSnapShot(
           DocumentReference ref, QueryDocumentSnapshot snap) =>
@@ -49,7 +39,7 @@ class Profile {
           job: snap.tryGet<String>('job'),
           gender: snap.tryGet<bool>('gender'),
           jobAt: snap.tryGet<String>('jobAt'),
-          imageUrls: List<String>.from((snap.get('imageUrls') as List? ?? [])));
+          imageUrls: snap.get('imageUrls') as List<String>);
 
   Map<String, dynamic> toJson() => {
         'name': name,

@@ -65,7 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "signout": MessageLookupByLibrary.simpleMessage("Sign out"),
     "suggestion": MessageLookupByLibrary.simpleMessage("Suggestion"),
-    "super_liked": MessageLookupByLibrary.simpleMessage("SuperLiked"),
+    "superLiked": MessageLookupByLibrary.simpleMessage("SuperLiked"),
     "unemployed": MessageLookupByLibrary.simpleMessage("Unemployed"),
     "user_or_password_incorrect": MessageLookupByLibrary.simpleMessage(
       "The email or password is incorrect.",

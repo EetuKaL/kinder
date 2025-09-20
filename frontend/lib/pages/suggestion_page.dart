@@ -41,7 +41,6 @@ class SuggestionPage extends StatelessWidget {
                                       ),
                                     )
                                     .toList();
-                                print(cards.length);
                                 return cards;
                               }()),
                   );

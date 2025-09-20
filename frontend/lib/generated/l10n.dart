@@ -250,8 +250,8 @@ class S {
   }
 
   /// `SuperLiked`
-  String get super_liked {
-    return Intl.message('SuperLiked', name: 'super_liked', desc: '', args: []);
+  String get superLiked {
+    return Intl.message('SuperLiked', name: 'superLiked', desc: '', args: []);
   }
 
   /// `It's a match!`
