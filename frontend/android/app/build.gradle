@@ -1,8 +1,8 @@
 plugins {
     id "com.android.application"
-    id "org.jetbrains.kotlin.android"
+    id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
-    id "com.google.gms.google-services"
+
 }
 
 
@@ -31,18 +31,12 @@ android {
     ndkVersion flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-      buildFeatures {
-        buildConfig true
-    }
-   
-
-
 
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '1.8'
     }
 
     sourceSets {
@@ -74,5 +68,7 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.google.android.gms:play-services-base:17.6.0'
+    'com.google.android.gms:play-services-base:17.6.0'
 }
+
+apply plugin: 'com.google.gms.google-services'

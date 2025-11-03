@@ -15,11 +15,8 @@ class KinderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.sizeOf(context);
-    return BlocProvider(
-        create: (context) =>
-            CardCubit(profile: profile, screenSize: screenSize),
-        child: isTop ? buildCardWithSwipeFeature() : buildCard());
+    const card = KinderCardStyling();
+    return isTop ? _makeItSwipable(card) : card;
   }
 
   void _showUserChoice(BuildContext context, CardStatus? choice) {
@@ -30,62 +27,46 @@ class KinderCard extends StatelessWidget {
       case CardStatus.dislike:
         showSwipeStatus(context, s.disliked);
       case CardStatus.superLike:
-        showSwipeStatus(context, s.super_liked);
+        showSwipeStatus(context, s.superLiked);
       default:
         break;
     }
   }
 
-  Widget buildCardWithSwipeFeature() => BlocBuilder<CardCubit, CardState>(
-        builder: (context, cardState) {
-          final onPanStart = context.read<CardCubit>().startPosition;
-          final onPanUpdate = context.read<CardCubit>().updatePosition;
-          final onPanEnd = context.read<CardCubit>().endPosition;
-          return GestureDetector(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                final position = cardState.position;
-                final milliseconds = cardState.isDragging ? 0 : 400;
+  Widget _makeItSwipable(KinderCardStyling card) => BlocProvider(
+        create: (context) =>
+            CardCubit(profile: profile, screenSize: context.size!),
+        child: BlocBuilder<CardCubit, CardState>(
+          builder: (context, cardState) {
+            return GestureDetector(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final position = cardState.position;
 
-                final center = constraints.smallest.center(Offset.zero);
-                final angle = cardState.angle * pi / 180;
+                  final center = constraints.smallest.center(Offset.zero);
+                  final angle = cardState.angle * pi / 180;
 
-                final rotatedMatrix = Matrix4.identity()
-                  ..translate(
-                    center.dx,
-                    center.dy,
-                    0,
-                  )
-                  ..rotateZ(angle)
-                  ..translate(
-                    -center.dx,
-                    -center.dy,
-                    0,
+                  final rotatedMatrix = Matrix4.identity()
+                    ..translateByDouble(center.dx, center.dy, 0, 0)
+                    ..rotateZ(angle)
+                    ..translateByDouble(-center.dx, -center.dy, 0, 0);
+
+                  return AnimatedContainer(
+                    transform: rotatedMatrix
+                      ..translateByDouble(position.dx, position.dy, 0, 0),
+                    duration: const Duration(milliseconds: 400),
+                    child: card,
                   );
-
-                return AnimatedContainer(
-                  transform: rotatedMatrix
-                    ..translate(
-                      position.dx,
-                      position.dy,
-                      0,
-                    ),
-                  duration: Duration(milliseconds: milliseconds),
-                  child: buildCard(),
-                );
-              },
-            ),
-            onPanStart: (details) => onPanStart(details),
-            onPanUpdate: (details) => onPanUpdate(details),
-            onPanEnd: (details) {
-              final userChoice = onPanEnd();
-              _showUserChoice(context, userChoice);
-            },
-          );
-        },
+                },
+              ),
+              onPanStart: (details) =>
+                  context.read<CardCubit>().startPosition(details),
+              onPanUpdate: (details) =>
+                  context.read<CardCubit>().updatePosition(details),
+              onPanEnd: (details) => _showUserChoice(
+                  context, context.read<CardCubit>().endPosition()),
+            );
+          },
+        ),
       );
-
-  Widget buildCard() => ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: const KinderCardStyling());
 }

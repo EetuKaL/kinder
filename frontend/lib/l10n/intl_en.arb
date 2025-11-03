@@ -26,7 +26,7 @@
     "user_or_password_incorrect": "The email or password is incorrect.",
     "liked": "Liked",
     "disliked": "Disliked",
-    "super_liked": "SuperLiked",
+    "superLiked": "SuperLiked",
     "its_a_match": "It's a match!",
     "gender": "Gender",
     "male": "Male",
@@ -36,6 +36,7 @@
     "employed": "Employed",
     "unemployed": "Unemployed",
     "prefer_not_to_say": "Prefer not to say"
+
 
 
 }
