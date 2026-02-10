@@ -3,12 +3,14 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"stack/pkg/aws"
 	"stack/pkg/commands"
 	"stack/pkg/fb"
 	"stack/pkg/projectcfg"
 	"strings"
 
+	"github.com/joho/godotenv"
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager/types"
 )
 
@@ -172,6 +174,8 @@ func main() {
 }
 
 func configure() (*projectcfg.ProjectConfig, error) {
+	loadEnv()
+
 	awsIdentity, err := commands.RunGetAwsIdentity()
 	if err != nil {
 		log.Fatal(err)
@@ -181,11 +185,12 @@ func configure() (*projectcfg.ProjectConfig, error) {
 		log.Fatal(err)
 	}
 
-	fbRegion := "europe-west1"
-	projectId := "28092025"
-	projectName := "kinder"
+	fbRegion := requireEnv("KINDER_FB_REGION")
+	projectId := requireEnv("KINDER_PROJECT_ID")
+	projectName := requireEnv("KINDER_PROJECT_NAME")
+	lambdaLocation := requireEnv("KINDER_LAMBDA_LOCATION")
 
-	config, err := projectcfg.NewProjectConfig(projectId, projectName, awsRegion, awsIdentity, fbRegion, "../backend/cmd/lambda/main.go")
+	config, err := projectcfg.NewProjectConfig(projectId, projectName, awsRegion, awsIdentity, fbRegion, lambdaLocation)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -194,6 +199,20 @@ func configure() (*projectcfg.ProjectConfig, error) {
 
 	return config, nil
 
+}
+
+func loadEnv() {
+	if err := godotenv.Load(".env", "../.env"); err != nil {
+		log.Printf("No .env file found, relying on environment variables")
+	}
+}
+
+func requireEnv(key string) string {
+	value := strings.TrimSpace(os.Getenv(key))
+	if value == "" {
+		log.Fatalf("Missing required env var: %s", key)
+	}
+	return value
 }
 
 func keyFromKeyName(keyData string) (string, error) {
