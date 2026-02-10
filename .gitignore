@@ -1,2 +1,7 @@
 /stack/pkg/aws/cdk.out/*
 /stack/generated/*
+.env
+/frontend/**/flutter/generated_plugin_registrant.*
+/frontend/**/flutter/generated_plugins.cmake
+/frontend/macos/Flutter/GeneratedPluginRegistrant.swift
+/frontend/pubspec.lock
